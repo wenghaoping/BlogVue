@@ -2,7 +2,7 @@
   <div id="app">
 
     <!--     头部导航 -->
-    <headered :username = "user_name" :privileges = "privileges"></headered>
+    <headered></headered>
 
     <main style="padding-top: 50px;">
       <transition :name="transitionName">
@@ -32,14 +32,18 @@ export default {
   },
   methods: {
     checkUser () {
-      this.user_id = localStorage.user_id;
-      this.user_name = this.$store.state.logining.user_name || localStorage.user_name;
-      this.privileges = this.$store.state.logining.privileges || localStorage.privileges;
+      let obj = {
+        user_id: localStorage.user_id || '',
+        user_name: localStorage.user_name === '' || localStorage.user_name === undefined ? '' : localStorage.user_name,
+        privileges: localStorage.privileges || 0
+      };
+      this.$store.dispatch('setLoginData', obj);
     }
   },
   // 当dom一创建时
   created () {
     this.zgIdentify(localStorage.user_id, {name: localStorage.user_name});
+    this.checkUser();
   },
   watch: {
     '$route' (to, from) {

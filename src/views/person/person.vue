@@ -3,6 +3,7 @@
       <div class="container" style="margin-top: 20px;">
         <div class="jumbotron">
           <div class="weixin">
+            <img src="../../assets/images/gongzhonghao.jpg">
             <img src="../../assets/images/weixin.jpg">
           </div>
         </div>

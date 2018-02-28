@@ -38,11 +38,10 @@
     </header>
 </template>
 <script type="text/ecmascript-6">
+import { mapState } from 'vuex';
 export default {
-  props: ['username', 'privileges'],
   data () {
     return {
-      user_name: '',
       user_id: '',
       privilegesTrue: '',
       activeName: 1
@@ -60,9 +59,12 @@ export default {
         this.zgClick('登出');
         localStorage.clear();
         this.$router.push({name: 'login'});// 路由传参
-        this.$store.state.logining.user_name = '';
-        this.$store.state.logining.user_id = '';
-        this.$store.state.logining.privileges = '';// 特权
+        let obj = {
+          user_id: '',
+          user_name: '',
+          privileges: ''
+        };
+        this.$store.dispatch('setLoginData', obj);
       }
     },
     jump (e) {
@@ -87,12 +89,11 @@ export default {
       }
     }
   },
-  watch: {
-    // 打开该弹框时
-    username: function (e) {
-      this.user_name = e || '';
-      this.privilegesTrue = this.privileges;// 特权判断
-    }
+  computed: {
+    ...mapState({
+      user_name: state => state.logining.user_name,
+      privileges: state => state.logining.privileges
+    })
   }
 };
 </script>

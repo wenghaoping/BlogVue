@@ -88,10 +88,12 @@ export default {
                 localStorage.user_name = res.data.user_name;
                 localStorage.user_id = res.data.user_id;
                 localStorage.privileges = res.data.privileges;
-                this.zgIdentify(res.data.user_id, {name: res.data.user_name});
-                this.$store.state.logining.user_name = res.data.user_name;
-                this.$store.state.logining.user_id = res.data.user_id;
-                this.$store.state.logining.privileges = res.data.privileges;// 特权
+                let obj = {
+                  user_id: res.data.user_id,
+                  user_name: res.data.user_name === '' ? '暂无姓名' : res.data.user_name,
+                  privileges: res.data.privileges
+                };
+                this.$store.dispatch('setLoginData', obj);
               }
               this.loading = false;
             })

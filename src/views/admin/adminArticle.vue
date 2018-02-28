@@ -144,7 +144,7 @@ export default {
   created () {
     this.getTop();
     if (this.checkUser()) {
-      this.privileges = localStorage.privileges || 0;
+      this.privileges = Number.parseInt(localStorage.privileges || 0);
       if (this.privileges === 1) { this.getArticleListAll(); } else if (this.privileges === 2) { this.getArticleListAllAdmin(); }
     };
   }

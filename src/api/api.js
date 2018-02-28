@@ -6,10 +6,13 @@ import qs from 'qs';
 
 axios.defaults.timeout = 60000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-// axios.defaults.baseURL = 'http://192.168.9.19:3000'; // 公司本地
-// axios.defaults.baseURL = 'http://192.168.2.109:3000'; // 家里本地
-axios.defaults.baseURL = 'http://www.wenghaoping.com:3000'; // 阿里云
-
+if (process.env.NODE_ENV === 'development') {
+  // axios.defaults.baseURL = 'http://192.168.9.19:3000'; // 公司本地
+  // axios.defaults.baseURL = 'http://192.168.2.109:3000'; // 家里本地
+  axios.defaults.baseURL = 'http://www.wenghaoping.com:3000'; // 阿里云
+} else {
+  axios.defaults.baseURL = 'http://www.wenghaoping.com:3000'; // 阿里云
+}
 // POST传参序列化 http request 拦截器
 axios.interceptors.request.use((config) => {
   if (config.method === 'post') {
